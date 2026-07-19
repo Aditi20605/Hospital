@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Patient Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>HOSPITAL MANAGEMENT SYSTEM</h1>
+        <h2>Receptionist Dashboard</h2>
+    </header>
+    <button class="back-button" onclick="goBack()">Back</button>
+    <a href="/logout" class="logout-btn">Logout</a>
+
+
+    <div class="container">
+        <a href="manage_appointment.html" class="feature">
+            <img src="26568_appointment-icon-png.png" alt="Manage Patient Appointments">
+            <span>Manage Patient Appointments</span>
+        </a>
+        <a href="generate_bills.html" class="feature">
+            <img src="bills-clipart-hospital-bill-6.png" alt="Generate and Manage Bills">
+            <span>Generate and Manage Bills</span>
+        </a>
+        <a href="SMS_notification.html" class="feature">
+            <img src="38-385740_push-notification-icon-png-push-notifications-icon-png.png" alt="Send SMS Notifications">
+            <span>Send SMS Notifications</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>© Copyright - Hospital Management System</p>
+        <p>Designed & Developed by Your Team</p>
+    </footer>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

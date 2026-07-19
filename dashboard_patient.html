@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Patient Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>HOSPITAL MANAGEMENT SYSTEM</h1>
+        <h2>Patient Dashboard</h2>
+    </header>
+    <button class="back-button" onclick="goBack()">Back</button>
+    <a href="/logout" class="logout-btn">Logout</a>
+
+
+    <div class="container">
+        <a href="book_appointment.html" class="feature">
+            <img src="26568_appointment-icon-png.png" alt="Book Appointment">
+            <span>Book Appointment</span>
+        </a>
+        <a href="medicine_reminder.html" class="feature">
+            <img src="th.jpg" alt="QR Check-in">
+            <span>Medicine Reminder</span>
+        </a>
+        </a>
+    </div>
+
+    <footer>
+        <p>© Copyright - Hospital Management System</p>
+        <p>Designed & Developed by Your Team</p>
+    </footer>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
+<!-- AI Chatbot Button -->
+<button class="chatbot-btn" onclick="openChat()">Chat with AI</button>
+
+<!-- Chatbot UI -->
+<div class="chatbot-container" id="chatbot">
+    <div class="chatbot-header">
+        AI Chatbot
+        <button class="close-btn" onclick="closeChat()">X</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <input type="text" class="chat-input" id="user-input" placeholder="Ask me anything...">
+    <button class="send-btn" onclick="sendMessage()">Send</button>
+</div>
+
+<!-- Chatbot Styles -->
+<style>
+    /* Chatbot Button */
+    .chatbot-btn {
+        background: #007bff;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+
+    .chatbot-btn:hover {
+        background: #0056b3;
+    }
+
+    /* Chatbot Window */
+    .chatbot-container {
+        display: none;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        height: 400px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        overflow: hidden;
+        z-index: 1000;
+    }
+
+    /* Chatbot Header */
+    .chatbot-header {
+        background: #007bff;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        position: relative;
+    }
+
+    /* Close Button */
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        background: red;
+        color: white;
+        border: none;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        background: darkred;
+    }
+
+    /* Chat Messages */
+    .chat-messages {
+        height: 300px;
+        overflow-y: auto;
+        padding: 10px;
+        font-size: 14px;
+        color: black;
+    }
+
+    /* Input Field */
+    .chat-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .send-btn {
+        width: 100%;
+        background: #007bff;
+        color: white;
+        font-size: 14px;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 5px;
+    }
+
+    .send-btn:hover {
+        background: #0056b3;
+    }
+
+    .logout-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+    
+    
+    .logout-btn:hover {
+        background: #cc0000;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function openChat() {
+        document.getElementById("chatbot").style.display = "block";
+    }
+    
+    function closeChat() {
+        document.getElementById("chatbot").style.display = "none";
+    }
+    
+    function appendMessage(content, sender = "user") {
+        const msgContainer = document.getElementById("chat-messages");
+        const msg = document.createElement("div");
+        msg.textContent = content;
+        msg.className = sender === "user" ? "user-msg" : "bot-msg";
+        msgContainer.appendChild(msg);
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+    }
+    
+    function sendMessage() {
+        const input = document.getElementById("user-input");
+        const message = input.value.trim();
+        if (!message) return;
+    
+        appendMessage(message, "user");
+        input.value = "";
+    
+        fetch("/chat", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ message: message })
+        })
+        .then(res => res.json())
+        .then(data => appendMessage(data.reply, "bot"))
+        .catch(err => appendMessage("❌ Something went wrong. Please try again.", "bot"));
+    }
+    </script>
+    
+
